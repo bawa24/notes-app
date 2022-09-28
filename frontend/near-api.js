@@ -31,36 +31,34 @@ export function signOutNearWallet() {
   window.location.replace(window.location.origin + window.location.pathname);
 }
 
-/*
-  Performs a view call to contract's `viewGreeting` method, to get data from the blockchain
-*/
-export async function viewBlockchainState() {
-  let account = window.walletConnection.account();
 
-  const currentState = await account.viewFunction(
-    nearConfig.contractName,
-    'viewGreeting',
-    {},
-  );
+/**
+ * 
+ * Calls a contract method which will insert the note into the blockchain state
+ * @param {note} 
+ * @returns result
+ */
 
-  return currentState;
+export async function insertNote(note) {
+  
+  return null;
+}
+/**
+ * 
+ * Performs a view call to contract's `viewNotes` method, to get data from the blockchain
+ */
+export async function viewNotes() {
+  return null;
 }
 
-/*
-  Calls a contract method which will manipulate blockchain state.
-*/
-export async function callSmartContractFunction(messageArg) {
-  let account = window.walletConnection.account();
-
-  // Use near-api-js to perform a smart contract function call
-  const result = await account.functionCall({
-    contractId: nearConfig.contractName,
-    methodName: 'setGreeting',
-    args: {
-      'message': messageArg
-    },
-    gas: '300000000000000',
-  });
-
-  return result;
+/**
+ * 
+ * Calls a contract method which will delete the note from the blockchain state
+ *  @param {indexToDelete} 
+ * @returns result
+ */
+export async function deleteNote(indexToDelete) {
+  return null;
 }
+
+
