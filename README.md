@@ -4,9 +4,8 @@
 
 # NEAR-SDK-JS Workshop Example
 
-> This example is designed to quickly get you writing and interacting with smart contracts on the NEAR blockchain using JavaScript! 🚀
+> This example is based on the coin-flip app created by the team at NEAR. This is a simple Notes app that uses NEAR blockchain to store the data 🚀
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/near-examples/near-sdk-js-quickstart)
 
 ---
 
