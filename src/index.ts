@@ -1,6 +1,7 @@
 import { NearBindgen, NearContract, call, view, near, UnorderedMap, LookupMap  } from 'near-sdk-js';
 
 import { connect, keyStores, WalletConnection } from 'near-api-js'
+import { blockTimestamp } from 'near-sdk-js/lib/api';
 
 
 const PREMIUM_PRICE = BigInt('10000000000000000000000');
@@ -45,7 +46,27 @@ class MyContract extends NearContract {
 
   @call
   newNote({note} : {note:Note}){
-    return null;
+
+    let user = near.predecessorAccountId();
+    var temp = [];
+    
+    if(note.title == null || note.content == null){
+      near.log("Empty notes has been passed");
+      near.log(note.title);
+      return "Empty notes were passed"
+    }
+
+    else{
+      if(this.notes.get(user) != null){
+        temp = temp.concat(this.notes.get(user));
+        temp = temp.concat(note);
+        this.notes.set(user, temp);
+      }
+      else{
+        this.notes.set(user,note);
+        return "Notes were set"
+      }
+    }
     
   }
 
@@ -57,8 +78,19 @@ class MyContract extends NearContract {
    */
   @call
   deleteNote({index} : {index:number}){
+    let user = near.predecessorAccountId();
+    let newNotes = [];
+    var temp;
+    temp = this.notes.get(user);
+    let valueToBeDeleted = temp[index]
+    for(let i=0; i<temp.length; i++){
+      if (i!= index){
+        newNotes = newNotes.concat(temp[i]);
+      }
+    }
+    this.notes.set(user, newNotes);
 
-    return null;
+    return valueToBeDeleted;
   }
 
   // @view indicates a 'view method' or a function that returns
@@ -76,8 +108,9 @@ class MyContract extends NearContract {
   @view
   viewNotes({ user }: { user: string }){
    
-    
-
+    if(this.notes.containsKey(user)){
+      return this.notes.get(user);
+    }
     return null;
   }
 }
