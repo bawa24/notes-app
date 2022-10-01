@@ -22,7 +22,8 @@ export default function App() {
   } else {
     // Get blockchian state once on component load
     React.useEffect(() => {
- 
+      viewNotes()
+      .then(val => setNotesForUser(val));
     }, []);
 
     
